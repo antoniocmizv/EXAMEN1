@@ -1,14 +1,123 @@
+/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
+    background-color: #35654d; /* Verde del fondo clásico del solitario */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    color: white;
 }
-#deck-container, #suits-container div {
-    border: 1px solid #000;
-    width: 100px;
-    height: 150px;
-    margin: 10px auto;
+
+/* Título del juego */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+/* Contenedor general */
+#deck-container, #suits-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto 20px auto;
+}
+
+/* Contenedor de las cartas */
+#deck-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+/* Estilo de las cartas */
+.card {
+    border: 2px solid #333;
+    width: 70px;
+    height: 100px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f4f4f4;
+    position: relative;
+    cursor: grab;
+}
+
+.card:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+/* Simulación de contenido en la carta */
+.card::before {
+    content: attr(data-value) " " attr(data-suit);
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: black;
+}
+
+.card::after {
+    font-size: 36px;
+    color: red;
+    display: block;
+}
+
+/* Contenedores de los palos */
+#suits-container div {
+    border: 2px dashed white;
+    width: 400px;
+    min-height: 150px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column; /* Apila las cartas verticalmente */
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden; /* Evita que las cartas sobresalgan */
+}
+
+/* Estilo de las cartas en los palos */
+#suits-container div .card {
+    margin-top: -20px; /* Apilamiento ajustado */
+    z-index: 1;
+    position: relative;
+}
+
+/* Estilo de las cartas cuando se apilan */
+#suits-container div .card:not(:last-child) {
+    z-index: auto;
+    
+}
+
+
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .card {
+        width: 50px;
+        height: 75px;
+    }
+
+    #suits-container div {
+        width: 50px;
+        height: 75px;
+    }
 }

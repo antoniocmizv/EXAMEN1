@@ -5,14 +5,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const deck = new Deck();
     const api = new API();
 
-    // Inicializar baraja y cargar estado
-    deck.init();
+    // Cargar el estado desde el servidor
     api.fetchState().then((state) => {
-        if (state) deck.loadState(state);
+        if (state && state.cards && state.cards.length > 0) {
+            // Si hay un estado guardado, cargarlo
+            deck.loadState(state);
+        } else {
+            // Si no hay estado guardado, inicializar un nuevo mazo
+            deck.init();
+        }
     });
 
-    // Eventos de arrastrar y soltar
-    deck.enableDragAndDrop((card, target) => {
+    // Configurar eventos de arrastrar y soltar
+    deck.enableDragAndDrop((data, container) => {
         api.saveState(deck.getState());
     });
 });
