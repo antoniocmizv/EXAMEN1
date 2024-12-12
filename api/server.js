@@ -15,11 +15,6 @@ let state = {
 
 // Ruta para obtener el estado actual
 app.get("/state", (req, res) => {
-    if (!state.cards || state.cards.length === 0) {
-        state = {
-            cards: [] // Asegúrate de que cards esté siempre definido
-        };
-    }
     res.json(state);
 });
 
